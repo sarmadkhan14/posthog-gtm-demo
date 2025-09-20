@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Demo - PostHog & GTM</title>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KVJM4S67');</script>
+    <!-- End Google Tag Manager -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #333;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .analytics-info {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .analytics-info h3 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .analytics-info ul {
+            margin-left: 20px;
+            color: #666;
+        }
+
+        .analytics-info li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .header, .demo-section, .form-section {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVJM4S67"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="container">
+        <header class="header">
+            <h1>PostHog + GTM Demo</h1>
+            <p>This website demonstrates PostHog analytics integration through Google Tag Manager. Every interaction you make is being tracked and analyzed!</p>
+        </header>
+
+        <div class="analytics-info">
+            <h3>🔍 What's Being Tracked:</h3>
+            <ul>
+                <li>Page views and session duration</li>
+                <li>Button clicks and form interactions</li>
+                <li>User scroll behavior and heatmaps</li>
+                <li>Custom events and conversion funnels</li>
+                <li>User paths and feature flags</li>
+            </ul>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card" onclick="trackFeatureClick('analytics')" data-feature="analytics">
+                <h3>📊 Advanced Analytics</h3>
+                <p>Track user behavior with detailed insights, conversion funnels, and retention analysis.</p>
+            </div>
+            <div class="feature-card" onclick="trackFeatureClick('heatmaps')" data-feature="heatmaps">
+                <h3>🔥 Heatmaps & Session Recordings</h3>
+                <p>See exactly how users interact with your site through visual heatmaps and session replays.</p>
+            </div>
+            <div class="feature-card" onclick="trackFeatureClick('experiments')" data-feature="experiments">
+                <h3>🧪 A/B Testing</h3>
+                <p>Run experiments and feature flags to optimize your user experience with data-driven decisions.</p>
+            </div>
+        </div>
+
+        <section class="demo-section">
+            <h2>🎯 Interactive Demo Buttons</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: #666;">
+                Click these buttons to generate different analytics events in PostHog
+            </p>
+            
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="trackCustomEvent('cta_clicked', 'primary')">
+                    Primary CTA
+                </button>
+                <button class="btn btn-secondary" onclick="trackCustomEvent('download_clicked', 'secondary')">
+                    Download Now
+                </button>
+                <button class="btn btn-success" onclick="trackCustomEvent('signup_started', 'success')">
+                    Sign Up Free
+                </button>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="trackPurchaseEvent()">
+                    🛒 Simulate Purchase
+                </button>
+                <button class="btn btn-secondary" onclick="trackNewsletterSignup()">
+                    📧 Newsletter Signup
+                </button>
+                <button class="btn btn-success" onclick="trackVideoPlay()">
+                    ▶️ Play Video
+                </button>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h2>📝 Contact Form (Tracked)</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: #666;">
+                This form interaction will be tracked in PostHog
+            </p>
+            
+            <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required onchange="trackFormField('name')">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required onchange="trackFormField('email')">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company" onchange="trackFormField('company')">
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">Interest Level</label>
+                        <select id="interest" name="interest" onchange="trackFormField('interest')">
+                            <option value="">Select...</option>
+                            <option value="low">Just browsing</option>
+                            <option value="medium">Somewhat interested</option>
+                            <option value="high">Very interested</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Tell us about your needs..." onchange="trackFormField('message')"></textarea>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        // Initialize dataLayer for GTM
+        window.dataLayer = window.dataLayer || [];
+        
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        // Custom event tracking functions
+        function trackCustomEvent(eventName, buttonType) {
+            // Push to dataLayer for GTM
+            window.dataLayer.push({
+                'event': 'custom_button_click',
+                'event_category': 'button',
+                'event_action': 'click',
+                'event_label': eventName,
+                'button_type': buttonType,
+                'timestamp': new Date().toISOString()
+            });
+
+            // Show user feedback
+            showNotification(`Tracked: ${eventName} event`);
+        }
+
+        function trackFeatureClick(featureName) {
+            window.dataLayer.push({
+                'event': 'feature_card_click',
+                'event_category': 'feature',
+                'event_action': 'click',
+                'event_label': featureName,
+                'timestamp': new Date().toISOString()
+            });
+
+            showNotification(`Tracked: ${featureName} feature click`);
+        }
+
+        function trackPurchaseEvent() {
+            window.dataLayer.push({
+                'event': 'purchase_simulation',
+                'event_category': 'ecommerce',
+                'event_action': 'purchase',
+                'value': 99.99,
+                'currency': 'USD',
+                'items': [{
+                    'item_id': 'demo_product_123',
+                    'item_name': 'Demo Product',
+                    'category': 'Software',
+                    'quantity': 1,
+                    'price': 99.99
+                }]
+            });
+
+            showNotification('Tracked: Purchase simulation ($99.99)');
+        }
+
+        function trackNewsletterSignup() {
+            window.dataLayer.push({
+                'event': 'newsletter_signup',
+                'event_category': 'engagement',
+                'event_action': 'signup',
+                'event_label': 'newsletter'
+            });
+
+            showNotification('Tracked: Newsletter signup');
+        }
+
+        function trackVideoPlay() {
+            window.dataLayer.push({
+                'event': 'video_play',
+                'event_category': 'media',
+                'event_action': 'play',
+                'video_title': 'Demo Video'
+            });
+
+            showNotification('Tracked: Video play event');
+        }
+
+        function trackFormField(fieldName) {
+            window.dataLayer.push({
+                'event': 'form_field_interaction',
+                'event_category': 'form',
+                'event_action': 'field_change',
+                'event_label': fieldName,
+                'form_name': 'contact_form'
+            });
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const formObject = Object.fromEntries(formData);
+            
+            window.dataLayer.push({
+                'event': 'form_submission',
+                'event_category': 'form',
+                'event_action': 'submit',
+                'event_label': 'contact_form',
+                'form_data': {
+                    'has_name': !!formObject.name,
+                    'has_email': !!formObject.email,
+                    'has_company': !!formObject.company,
+                    'interest_level': formObject.interest,
+                    'has_message': !!formObject.message
+                }
+            });
+
+            showNotification('Tracked: Form submission completed!');
+            
+            // Reset form after a delay
+            setTimeout(() => {
+                event.target.reset();
+            }, 2000);
+        }
+
+        // Track scroll events
+        let scrollTracked = false;
+        window.addEventListener('scroll', function() {
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            
+            if (scrollPercent > 25 && !scrollTracked) {
+                window.dataLayer.push({
+                    'event': 'scroll_depth',
+                    'event_category': 'engagement',
+                    'event_action': 'scroll',
+                    'scroll_depth': '25%'
+                });
+                scrollTracked = true;
+            }
+        });
+
+        // Track time on page
+        let pageLoadTime = Date.now();
+        let timeTracked = false;
+
+        setTimeout(() => {
+            if (!timeTracked) {
+                window.dataLayer.push({
+                    'event': 'time_on_page',
+                    'event_category': 'engagement',
+                    'event_action': 'time_spent',
+                    'time_on_page': '30_seconds'
+                });
+                timeTracked = true;
+            }
+        }, 30000);
+
+        // Notification system
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                z-index: 1000;
+                font-weight: 600;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after delay
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Send initial page view
+        window.dataLayer.push({
+            'event': 'page_view',
+            'page_title': document.title,
+            'page_location': window.location.href,
+            'timestamp': new Date().toISOString()
+        });
+    </script>
+</body>
+</html>
