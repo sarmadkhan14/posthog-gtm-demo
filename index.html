@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analytics Demo - PostHog & GTM</title>
+    <title>PostHog Advanced Features Demo</title>
     
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -60,37 +60,37 @@
             margin: 0 auto;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        .feature-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 5px 15px;
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 10px 5px;
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        .analytics-info {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
         }
 
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
+        .analytics-info h3 {
+            color: #3498db;
+            margin-bottom: 10px;
         }
 
-        .feature-card p {
+        .analytics-info ul {
+            margin-left: 20px;
             color: #666;
-            margin-bottom: 20px;
+        }
+
+        .analytics-info li {
+            margin-bottom: 5px;
         }
 
         .demo-section {
@@ -104,9 +104,14 @@
 
         .demo-section h2 {
             font-size: 2rem;
-            margin-bottom: 30px;
-            text-align: center;
+            margin-bottom: 15px;
             color: #333;
+        }
+
+        .demo-section .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
         }
 
         .button-group {
@@ -146,75 +151,114 @@
             color: white;
         }
 
+        .btn-warning {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            color: #333;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+        }
+
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
-        .form-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .analytics-info {
-            background: rgba(52, 152, 219, 0.1);
-            border: 2px solid rgba(52, 152, 219, 0.3);
+        .feature-flag-demo {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid #ffc107;
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             margin: 20px 0;
         }
 
-        .analytics-info h3 {
-            color: #3498db;
-            margin-bottom: 10px;
+        .feature-flag-demo h3 {
+            color: #f57c00;
+            margin-bottom: 15px;
         }
 
-        .analytics-info ul {
-            margin-left: 20px;
-            color: #666;
+        .experiment-variant {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
         }
 
-        .analytics-info li {
-            margin-bottom: 5px;
+        .experiment-variant h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .error-demo {
+            background: rgba(244, 67, 54, 0.1);
+            border: 2px solid #f44336;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .error-demo h3 {
+            color: #c62828;
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+            color: #1565c0;
+        }
+
+        .code-snippet {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-active {
+            background: #4caf50;
+            box-shadow: 0 0 10px #4caf50;
+        }
+
+        .status-inactive {
+            background: #9e9e9e;
+        }
+
+        #featureFlagContent {
+            display: none;
+        }
+
+        #experimentVariant {
+            text-align: center;
+            padding: 20px;
         }
 
         @media (max-width: 768px) {
@@ -226,7 +270,7 @@
                 padding: 15px;
             }
             
-            .header, .demo-section, .form-section {
+            .demo-section {
                 padding: 20px;
             }
             
@@ -250,110 +294,200 @@
 
     <div class="container">
         <header class="header">
-            <h1>PostHog + GTM Demo</h1>
-            <p>This website demonstrates PostHog analytics integration through Google Tag Manager. Every interaction you make is being tracked and analyzed!</p>
+            <h1>🦔 PostHog Advanced Features</h1>
+            <p>Learn Feature Flags, A/B Testing, and Error Tracking hands-on!</p>
+            <div>
+                <span class="feature-badge">🚩 Feature Flags</span>
+                <span class="feature-badge">🧪 Experiments</span>
+                <span class="feature-badge">🐛 Error Tracking</span>
+            </div>
         </header>
 
         <div class="analytics-info">
-            <h3>🔍 What's Being Tracked:</h3>
+            <h3>🎓 What You'll Learn:</h3>
             <ul>
-                <li>Page views and session duration</li>
-                <li>Button clicks and form interactions</li>
-                <li>User scroll behavior and heatmaps</li>
-                <li>Custom events and conversion funnels</li>
-                <li>User paths and feature flags</li>
+                <li><strong>Feature Flags:</strong> Control features without deploying code</li>
+                <li><strong>A/B Testing:</strong> Test different variations to optimize conversions</li>
+                <li><strong>Error Tracking:</strong> Capture and monitor JavaScript errors</li>
+                <li><strong>User Properties:</strong> Segment users and target specific groups</li>
+                <li><strong>Event Tracking:</strong> Measure success metrics for experiments</li>
             </ul>
         </div>
 
-        <div class="features-grid">
-            <div class="feature-card" onclick="trackFeatureClick('analytics')" data-feature="analytics">
-                <h3>📊 Advanced Analytics</h3>
-                <p>Track user behavior with detailed insights, conversion funnels, and retention analysis.</p>
-            </div>
-            <div class="feature-card" onclick="trackFeatureClick('heatmaps')" data-feature="heatmaps">
-                <h3>🔥 Heatmaps & Session Recordings</h3>
-                <p>See exactly how users interact with your site through visual heatmaps and session replays.</p>
-            </div>
-            <div class="feature-card" onclick="trackFeatureClick('experiments')" data-feature="experiments">
-                <h3>🧪 A/B Testing</h3>
-                <p>Run experiments and feature flags to optimize your user experience with data-driven decisions.</p>
-            </div>
-        </div>
-
+        <!-- Feature Flags Section -->
         <section class="demo-section">
-            <h2>🎯 Interactive Demo Buttons</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: #666;">
-                Click these buttons to generate different analytics events in PostHog
-            </p>
+            <h2>🚩 Feature Flags Demo</h2>
+            <p class="subtitle">Control feature visibility without code deployments</p>
             
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="trackCustomEvent('cta_clicked', 'primary')">
-                    Primary CTA
-                </button>
-                <button class="btn btn-secondary" onclick="trackCustomEvent('download_clicked', 'secondary')">
-                    Download Now
-                </button>
-                <button class="btn btn-success" onclick="trackCustomEvent('signup_started', 'success')">
-                    Sign Up Free
-                </button>
+            <div class="feature-flag-demo">
+                <h3>
+                    <span class="status-indicator" id="flagStatus"></span>
+                    Premium Feature Flag Status
+                </h3>
+                <div class="info-box">
+                    <p><strong>Flag Key:</strong> <code>show-premium-features</code></p>
+                    <p><strong>Current Status:</strong> <span id="flagValue">Checking...</span></p>
+                    <p><strong>What it does:</strong> Shows/hides premium content below</p>
+                </div>
+                
+                <div id="featureFlagContent" style="margin-top: 20px;">
+                    <div style="background: linear-gradient(135deg, #ffd700, #ffed4e); padding: 25px; border-radius: 15px; text-align: center;">
+                        <h3 style="margin: 0 0 10px 0;">🌟 Premium Feature Unlocked!</h3>
+                        <p style="margin: 0; color: #333;">This content is only visible when the feature flag is enabled in PostHog.</p>
+                        <button class="btn btn-primary" onclick="trackFeatureFlagInteraction()" style="margin-top: 15px;">
+                            Use Premium Feature
+                        </button>
+                    </div>
+                </div>
+
+                <div class="code-snippet">
+// PostHog Feature Flag Check
+if (posthog.isFeatureEnabled('show-premium-features')) {
+    // Show premium content
+    document.getElementById('featureFlagContent').style.display = 'block';
+}</div>
             </div>
 
             <div class="button-group">
-                <button class="btn btn-primary" onclick="trackPurchaseEvent()">
-                    🛒 Simulate Purchase
+                <button class="btn btn-primary" onclick="checkFeatureFlag()">
+                    🔄 Refresh Flag Status
                 </button>
-                <button class="btn btn-secondary" onclick="trackNewsletterSignup()">
-                    📧 Newsletter Signup
-                </button>
-                <button class="btn btn-success" onclick="trackVideoPlay()">
-                    ▶️ Play Video
+                <button class="btn btn-secondary" onclick="identifyUser()">
+                    👤 Identify as Premium User
                 </button>
             </div>
         </section>
 
-        <section class="form-section">
-            <h2>📝 Contact Form (Tracked)</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: #666;">
-                This form interaction will be tracked in PostHog
-            </p>
+        <!-- A/B Testing / Experiments Section -->
+        <section class="demo-section">
+            <h2>🧪 A/B Testing Experiment</h2>
+            <p class="subtitle">Test different button variations to see which performs better</p>
             
-            <form id="contactForm" onsubmit="handleFormSubmit(event)">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required onchange="trackFormField('name')">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required onchange="trackFormField('email')">
-                    </div>
+            <div class="experiment-variant">
+                <h3>Experiment: CTA Button Test</h3>
+                <div class="info-box">
+                    <p><strong>Experiment Key:</strong> <code>cta-button-test</code></p>
+                    <p><strong>Your Variant:</strong> <span id="experimentVariant">Loading...</span></p>
+                    <p><strong>Hypothesis:</strong> Does "Get Started Free" convert better than "Try Now"?</p>
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="company">Company</label>
-                        <input type="text" id="company" name="company" onchange="trackFormField('company')">
-                    </div>
-                    <div class="form-group">
-                        <label for="interest">Interest Level</label>
-                        <select id="interest" name="interest" onchange="trackFormField('interest')">
-                            <option value="">Select...</option>
-                            <option value="low">Just browsing</option>
-                            <option value="medium">Somewhat interested</option>
-                            <option value="high">Very interested</option>
-                        </select>
-                    </div>
+
+                <div id="experimentContent" style="margin-top: 25px; text-align: center;">
+                    <!-- Variant will be loaded here by JavaScript -->
                 </div>
-                
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Tell us about your needs..." onchange="trackFormField('message')"></textarea>
+
+                <div class="code-snippet">
+// PostHog A/B Testing
+const variant = posthog.getFeatureFlag('cta-button-test');
+if (variant === 'control') {
+    showButton('Try Now', 'primary');
+} else if (variant === 'test') {
+    showButton('Get Started Free', 'success');
+}</div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>💡 Tip:</strong> PostHog will automatically split users into control/test groups and track conversion rates for each variant.</p>
+            </div>
+        </section>
+
+        <!-- Error Tracking Section -->
+        <section class="demo-section">
+            <h2>🐛 Error Tracking Demo</h2>
+            <p class="subtitle">See how PostHog captures and reports JavaScript errors</p>
+            
+            <div class="error-demo">
+                <h3>Trigger Different Error Types</h3>
+                <div class="info-box">
+                    <p><strong>What happens:</strong> These buttons intentionally cause errors that PostHog will capture</p>
+                    <p><strong>Check PostHog:</strong> Go to "Errors" or "Session Recordings" to see the captured errors</p>
                 </div>
-                
-                <div style="text-align: center;">
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+
+                <div class="button-group">
+                    <button class="btn btn-danger" onclick="triggerReferenceError()">
+                        💥 Reference Error
+                    </button>
+                    <button class="btn btn-danger" onclick="triggerTypeError()">
+                        💥 Type Error
+                    </button>
+                    <button class="btn btn-danger" onclick="triggerCustomError()">
+                        💥 Custom Error
+                    </button>
+                    <button class="btn btn-warning" onclick="triggerNetworkError()">
+                        🌐 Network Error Simulation
+                    </button>
                 </div>
-            </form>
+
+                <div class="code-snippet">
+// PostHog automatically captures errors
+try {
+    nonExistentFunction(); // This will be captured
+} catch (error) {
+    posthog.capture('$exception', {
+        error: error.message,
+        stack: error.stack
+    });
+}</div>
+            </div>
+        </section>
+
+        <!-- User Identification Section -->
+        <section class="demo-section">
+            <h2>👤 User Identification & Properties</h2>
+            <p class="subtitle">Test user segmentation and targeting</p>
+            
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="identifyUser()">
+                    Identify as Premium User
+                </button>
+                <button class="btn btn-secondary" onclick="identifyBasicUser()">
+                    Identify as Basic User
+                </button>
+                <button class="btn btn-success" onclick="setUserProperties()">
+                    Set Custom Properties
+                </button>
+                <button class="btn btn-warning" onclick="resetUser()">
+                    Reset User Identity
+                </button>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Current User ID:</strong> <span id="currentUserId">Anonymous</span></p>
+                <p><strong>User Type:</strong> <span id="userType">Not set</span></p>
+            </div>
+
+            <div class="code-snippet">
+// Identify user with properties
+posthog.identify('user_123', {
+    email: 'user@example.com',
+    plan: 'premium',
+    signup_date: '2024-01-15'
+});</div>
+        </section>
+
+        <!-- Event Tracking Section -->
+        <section class="demo-section">
+            <h2>📊 Custom Event Tracking</h2>
+            <p class="subtitle">Track custom events for funnel analysis</p>
+            
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="trackCustomEvent('demo_started', {source: 'feature_flags'})">
+                    Track Demo Started
+                </button>
+                <button class="btn btn-secondary" onclick="trackCustomEvent('feature_tested', {feature: 'premium'})">
+                    Track Feature Test
+                </button>
+                <button class="btn btn-success" onclick="trackCustomEvent('conversion', {value: 99})">
+                    Track Conversion
+                </button>
+            </div>
+
+            <div class="code-snippet">
+// Track custom events
+posthog.capture('conversion', {
+    value: 99,
+    currency: 'USD',
+    source: 'experiment'
+});</div>
         </section>
     </div>
 
@@ -361,159 +495,315 @@
         // Initialize dataLayer for GTM
         window.dataLayer = window.dataLayer || [];
         
-        function gtag(){
-            dataLayer.push(arguments);
+        // Wait for PostHog to load
+        let posthogReady = false;
+        let userIdentified = false;
+
+        // Check if PostHog is available
+        function waitForPostHog() {
+            if (typeof posthog !== 'undefined') {
+                posthogReady = true;
+                console.log('✅ PostHog is ready!');
+                initializeFeatures();
+            } else {
+                console.log('⏳ Waiting for PostHog...');
+                setTimeout(waitForPostHog, 500);
+            }
         }
 
-        // Custom event tracking functions
-        function trackCustomEvent(eventName, buttonType) {
-            // Push to dataLayer for GTM
-            window.dataLayer.push({
-                'event': 'custom_button_click',
-                'event_category': 'button',
-                'event_action': 'click',
-                'event_label': eventName,
-                'button_type': buttonType,
-                'timestamp': new Date().toISOString()
+        // Initialize all features
+        function initializeFeatures() {
+            checkFeatureFlag();
+            loadExperimentVariant();
+            updateUserDisplay();
+        }
+
+        // Feature Flag Functions
+        function checkFeatureFlag() {
+            if (!posthogReady) {
+                showNotification('⏳ PostHog is still loading...', 'warning');
+                return;
+            }
+
+            const flagEnabled = posthog.isFeatureEnabled('show-premium-features');
+            const statusIndicator = document.getElementById('flagStatus');
+            const flagValue = document.getElementById('flagValue');
+            const flagContent = document.getElementById('featureFlagContent');
+
+            if (flagEnabled) {
+                flagValue.textContent = '✅ Enabled';
+                statusIndicator.className = 'status-indicator status-active';
+                flagContent.style.display = 'block';
+                
+                posthog.capture('feature_flag_checked', {
+                    flag_name: 'show-premium-features',
+                    flag_value: true
+                });
+            } else {
+                flagValue.textContent = '❌ Disabled';
+                statusIndicator.className = 'status-indicator status-inactive';
+                flagContent.style.display = 'none';
+                
+                posthog.capture('feature_flag_checked', {
+                    flag_name: 'show-premium-features',
+                    flag_value: false
+                });
+            }
+
+            showNotification(`Feature flag is ${flagEnabled ? 'enabled' : 'disabled'}`);
+        }
+
+        function trackFeatureFlagInteraction() {
+            posthog.capture('premium_feature_used', {
+                feature: 'premium_content',
+                timestamp: new Date().toISOString()
             });
-
-            // Show user feedback
-            showNotification(`Tracked: ${eventName} event`);
-        }
-
-        function trackFeatureClick(featureName) {
-            window.dataLayer.push({
-                'event': 'feature_card_click',
-                'event_category': 'feature',
-                'event_action': 'click',
-                'event_label': featureName,
-                'timestamp': new Date().toISOString()
-            });
-
-            showNotification(`Tracked: ${featureName} feature click`);
-        }
-
-        function trackPurchaseEvent() {
-            window.dataLayer.push({
-                'event': 'purchase_simulation',
-                'event_category': 'ecommerce',
-                'event_action': 'purchase',
-                'value': 99.99,
-                'currency': 'USD',
-                'items': [{
-                    'item_id': 'demo_product_123',
-                    'item_name': 'Demo Product',
-                    'category': 'Software',
-                    'quantity': 1,
-                    'price': 99.99
-                }]
-            });
-
-            showNotification('Tracked: Purchase simulation ($99.99)');
-        }
-
-        function trackNewsletterSignup() {
-            window.dataLayer.push({
-                'event': 'newsletter_signup',
-                'event_category': 'engagement',
-                'event_action': 'signup',
-                'event_label': 'newsletter'
-            });
-
-            showNotification('Tracked: Newsletter signup');
-        }
-
-        function trackVideoPlay() {
-            window.dataLayer.push({
-                'event': 'video_play',
-                'event_category': 'media',
-                'event_action': 'play',
-                'video_title': 'Demo Video'
-            });
-
-            showNotification('Tracked: Video play event');
-        }
-
-        function trackFormField(fieldName) {
-            window.dataLayer.push({
-                'event': 'form_field_interaction',
-                'event_category': 'form',
-                'event_action': 'field_change',
-                'event_label': fieldName,
-                'form_name': 'contact_form'
-            });
-        }
-
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(event.target);
-            const formObject = Object.fromEntries(formData);
             
             window.dataLayer.push({
-                'event': 'form_submission',
-                'event_category': 'form',
-                'event_action': 'submit',
-                'event_label': 'contact_form',
-                'form_data': {
-                    'has_name': !!formObject.name,
-                    'has_email': !!formObject.email,
-                    'has_company': !!formObject.company,
-                    'interest_level': formObject.interest,
-                    'has_message': !!formObject.message
-                }
+                'event': 'premium_feature_interaction',
+                'feature_name': 'premium_content'
             });
 
-            showNotification('Tracked: Form submission completed!');
+            showNotification('✅ Premium feature interaction tracked!');
+        }
+
+        // A/B Testing Functions
+        function loadExperimentVariant() {
+            if (!posthogReady) return;
+
+            const variant = posthog.getFeatureFlag('cta-button-test');
+            const experimentVariant = document.getElementById('experimentVariant');
+            const experimentContent = document.getElementById('experimentContent');
+
+            if (variant === 'control') {
+                experimentVariant.textContent = '🅰️ Control (Original)';
+                experimentContent.innerHTML = `
+                    <button class="btn btn-primary" onclick="trackExperimentClick('control')" style="font-size: 1.2rem; padding: 20px 40px;">
+                        Try Now
+                    </button>
+                `;
+            } else if (variant === 'test') {
+                experimentVariant.textContent = '🅱️ Test (Variation)';
+                experimentContent.innerHTML = `
+                    <button class="btn btn-success" onclick="trackExperimentClick('test')" style="font-size: 1.2rem; padding: 20px 40px;">
+                        Get Started Free
+                    </button>
+                `;
+            } else {
+                experimentVariant.textContent = '⚠️ Not in experiment';
+                experimentContent.innerHTML = `
+                    <p style="color: #666;">You're not currently enrolled in this experiment. Try identifying as a user first.</p>
+                `;
+            }
+
+            posthog.capture('experiment_variant_loaded', {
+                experiment: 'cta-button-test',
+                variant: variant || 'none'
+            });
+        }
+
+        function trackExperimentClick(variant) {
+            posthog.capture('experiment_cta_clicked', {
+                experiment: 'cta-button-test',
+                variant: variant,
+                timestamp: new Date().toISOString()
+            });
+
+            window.dataLayer.push({
+                'event': 'experiment_conversion',
+                'experiment_name': 'cta-button-test',
+                'variant': variant
+            });
+
+            showNotification(`✅ Clicked ${variant} variant - tracked in PostHog!`);
+        }
+
+        // Error Tracking Functions
+        function triggerReferenceError() {
+            try {
+                nonExistentFunction();
+            } catch (error) {
+                posthog.capture('$exception', {
+                    error_type: 'ReferenceError',
+                    error_message: error.message,
+                    error_stack: error.stack,
+                    triggered_by: 'user_action'
+                });
+                showNotification('💥 Reference Error captured by PostHog!', 'error');
+            }
+        }
+
+        function triggerTypeError() {
+            try {
+                const obj = null;
+                obj.someMethod();
+            } catch (error) {
+                posthog.capture('$exception', {
+                    error_type: 'TypeError',
+                    error_message: error.message,
+                    error_stack: error.stack,
+                    triggered_by: 'user_action'
+                });
+                showNotification('💥 Type Error captured by PostHog!', 'error');
+            }
+        }
+
+        function triggerCustomError() {
+            const error = new Error('This is a custom error for testing');
+            posthog.capture('$exception', {
+                error_type: 'CustomError',
+                error_message: error.message,
+                error_stack: error.stack,
+                triggered_by: 'user_action',
+                severity: 'high'
+            });
+            showNotification('💥 Custom Error sent to PostHog!', 'error');
+        }
+
+        function triggerNetworkError() {
+            posthog.capture('network_error_simulation', {
+                error_type: 'NetworkError',
+                endpoint: '/api/fake-endpoint',
+                status_code: 500,
+                message: 'Simulated server error'
+            });
+            showNotification('🌐 Network Error simulation tracked!', 'warning');
+        }
+
+        // User Identification Functions
+        function identifyUser() {
+            if (!posthogReady) {
+                showNotification('⏳ PostHog is still loading...', 'warning');
+                return;
+            }
+
+            const userId = 'user_premium_' + Math.floor(Math.random() * 1000);
+            posthog.identify(userId, {
+                email: 'premium@example.com',
+                plan: 'premium',
+                signup_date: '2024-01-15',
+                total_spent: 299.99,
+                features_enabled: ['advanced_analytics', 'priority_support']
+            });
+
+            userIdentified = true;
+            showNotification('✅ Identified as Premium User!');
+            updateUserDisplay();
             
-            // Reset form after a delay
+            // Reload features with new user context
             setTimeout(() => {
-                event.target.reset();
-            }, 2000);
+                checkFeatureFlag();
+                loadExperimentVariant();
+            }, 500);
         }
 
-        // Track scroll events
-        let scrollTracked = false;
-        window.addEventListener('scroll', function() {
-            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        function identifyBasicUser() {
+            if (!posthogReady) {
+                showNotification('⏳ PostHog is still loading...', 'warning');
+                return;
+            }
+
+            const userId = 'user_basic_' + Math.floor(Math.random() * 1000);
+            posthog.identify(userId, {
+                email: 'basic@example.com',
+                plan: 'basic',
+                signup_date: new Date().toISOString().split('T')[0],
+                total_spent: 0
+            });
+
+            userIdentified = true;
+            showNotification('✅ Identified as Basic User!');
+            updateUserDisplay();
             
-            if (scrollPercent > 25 && !scrollTracked) {
-                window.dataLayer.push({
-                    'event': 'scroll_depth',
-                    'event_category': 'engagement',
-                    'event_action': 'scroll',
-                    'scroll_depth': '25%'
-                });
-                scrollTracked = true;
+            setTimeout(() => {
+                checkFeatureFlag();
+                loadExperimentVariant();
+            }, 500);
+        }
+
+        function setUserProperties() {
+            if (!posthogReady || !userIdentified) {
+                showNotification('⚠️ Please identify as a user first!', 'warning');
+                return;
             }
-        });
 
-        // Track time on page
-        let pageLoadTime = Date.now();
-        let timeTracked = false;
+            posthog.setPersonProperties({
+                custom_property: 'test_value',
+                last_active: new Date().toISOString(),
+                page_views: Math.floor(Math.random() * 100),
+                favorite_feature: 'experiments'
+            });
 
-        setTimeout(() => {
-            if (!timeTracked) {
-                window.dataLayer.push({
-                    'event': 'time_on_page',
-                    'event_category': 'engagement',
-                    'event_action': 'time_spent',
-                    'time_on_page': '30_seconds'
-                });
-                timeTracked = true;
+            showNotification('✅ Custom properties set!');
+        }
+
+        function resetUser() {
+            if (!posthogReady) return;
+            
+            posthog.reset();
+            userIdentified = false;
+            showNotification('🔄 User identity reset!');
+            updateUserDisplay();
+            
+            setTimeout(() => {
+                checkFeatureFlag();
+                loadExperimentVariant();
+            }, 500);
+        }
+
+        function updateUserDisplay() {
+            const userIdDisplay = document.getElementById('currentUserId');
+            const userTypeDisplay = document.getElementById('userType');
+            
+            if (userIdentified && posthogReady) {
+                const distinctId = posthog.get_distinct_id();
+                userIdDisplay.textContent = distinctId;
+                
+                const props = posthog.getFeatureFlagPayload('show-premium-features');
+                userTypeDisplay.textContent = distinctId.includes('premium') ? 'Premium' : 'Basic';
+            } else {
+                userIdDisplay.textContent = 'Anonymous';
+                userTypeDisplay.textContent = 'Not set';
             }
-        }, 30000);
+        }
 
-        // Notification system
-        function showNotification(message) {
-            // Create notification element
+        // Custom Event Tracking
+        function trackCustomEvent(eventName, properties = {}) {
+            if (!posthogReady) {
+                showNotification('⏳ PostHog is still loading...', 'warning');
+                return;
+            }
+
+            posthog.capture(eventName, {
+                ...properties,
+                timestamp: new Date().toISOString(),
+                page: window.location.pathname
+            });
+
+            window.dataLayer.push({
+                'event': 'custom_posthog_event',
+                'event_name': eventName,
+                'event_properties': properties
+            });
+
+            showNotification(`✅ Event tracked: ${eventName}`);
+        }
+
+        // Notification System
+        function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
+            const colors = {
+                success: 'linear-gradient(135deg, #667eea, #764ba2)',
+                error: 'linear-gradient(135deg, #ff6b6b, #ee5a6f)',
+                warning: 'linear-gradient(135deg, #ffecd2, #fcb69f)'
+            };
+            
             notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: linear-gradient(135deg, #667eea, #764ba2);
-                color: white;
+                background: ${colors[type] || colors.success};
+                color: ${type === 'warning' ? '#333' : 'white'};
                 padding: 15px 25px;
                 border-radius: 10px;
                 box-shadow: 0 10px 25px rgba(0,0,0,0.2);
@@ -521,17 +811,16 @@
                 font-weight: 600;
                 transform: translateX(400px);
                 transition: transform 0.3s ease;
+                max-width: 300px;
             `;
             notification.textContent = message;
             
             document.body.appendChild(notification);
             
-            // Animate in
             setTimeout(() => {
                 notification.style.transform = 'translateX(0)';
             }, 100);
             
-            // Remove after delay
             setTimeout(() => {
                 notification.style.transform = 'translateX(400px)';
                 setTimeout(() => {
@@ -540,13 +829,21 @@
             }, 3000);
         }
 
-        // Send initial page view
+        // Page view tracking
         window.dataLayer.push({
             'event': 'page_view',
             'page_title': document.title,
             'page_location': window.location.href,
             'timestamp': new Date().toISOString()
         });
+
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            waitForPostHog();
+        });
+
+        // Also try immediately in case PostHog loads quickly
+        waitForPostHog();
     </script>
 </body>
 </html>
